@@ -29,11 +29,11 @@ data class User (
     val score: Int
 )
 
-data class Score (
-    val userId: String,
-    val points: Int
-)
-
+private fun File.linesFlow() = flow {
+    bufferedReader()
+        .lineSequence()
+        .forEach { emit(it) }
+}
 
 @ExperimentalCoroutinesApi
 fun flowDemo() = runBlocking {
@@ -50,11 +50,10 @@ fun flowDemo() = runBlocking {
     println("Average score is: $average")
 }
 
-private fun File.linesFlow() = flow {
-    bufferedReader()
-        .lineSequence()
-        .forEach { emit(it) }
-}
+data class Score (
+    val userId: String,
+    val points: Int
+)
 
 @ExperimentalCoroutinesApi
 fun channelDemo() = runBlocking {
